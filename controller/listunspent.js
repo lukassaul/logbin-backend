@@ -11,13 +11,19 @@ exports.listUnspent = async function(req, res) {
       const response_utxo = await axios.get(`http://localhost:3000/address/${address}/utxo`)
       const response_add = await axios.get(`http://localhost:3000/address/${address}/txs`)
       if (response_add.data || !response_utxo.error) {
-        console.log("response add data: ", response_add.data[0].vin[0].prevout.scriptpubkey)
+        
+        // const scriptpub = response_add.data[0].vin.slice(-1).pop()
+        // console.log("response add data: ", scriptpub)
+        let scriptpub = response_add.data[0].vout.filter(function(pub) {
+          return pub.scriptpubkey_address === address;
+        })
+        console.log("response add data: ", scriptpub[0].scriptpubkey)
         for (const val of response_utxo.data) {
           resultJson.address.push({
             txid: val.txid,
             vout: val.vout,
             amount: val.value,
-            scriptpubkey: response_add.data[0].vin[0].prevout.scriptpubkey,
+            scriptpubkey: scriptpub[0].scriptpubkey,
           })
         }
         return res.status(200).json({message: resultJson})
@@ -26,6 +32,7 @@ exports.listUnspent = async function(req, res) {
       }
       
     } catch (err) {
+      console.log(err)
       return res.status(504).json({message: err})
     }
     
