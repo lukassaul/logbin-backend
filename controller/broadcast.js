@@ -29,7 +29,7 @@ exports.broadcastTransaction = async function(req, res) {
     };
     
     callback = (error, response, body) => {
-      
+      console.log("body ", body)
       if (!error && response.statusCode == 200) {
         const data = JSON.parse(body);
         
@@ -57,7 +57,7 @@ exports.broadcastTransactionr = async function(req, res) {
     };
     
     callback = (error, response, body) => {
-      
+      console.log("body ", body)
       if (!error && response.statusCode == 200) {
         const data = JSON.parse(body);
         
