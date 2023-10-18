@@ -9,7 +9,7 @@ exports.getBalance = async function(req, res) {
     
     
     try {
-      const balance = await axios.get(`http://localhost:3000/address/${address}/utxo`)
+      const balance = await axios.get(`https://electrs.logbin.org/address/${address}/utxo`)
       console.log(balance.data)
       
       if (balance.data) {

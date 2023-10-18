@@ -4,9 +4,9 @@ const axios = require('axios').default;
 exports.getTxFee = async function(req, res) {
     
     try {
-      const blockHash = await axios.get(`http://localhost:3000/blocks/tip/hash`)
+      const blockHash = await axios.get(`https://electrs.logbin.org/blocks/tip/hash`)
       if (blockHash.data) {
-        const block = await axios.get(`http://localhost:3000/block/${blockHash.data}`)
+        const block = await axios.get(`https://electrs.logbin.org/block/${blockHash.data}`)
         if (block.data) {
             
             const data = {
