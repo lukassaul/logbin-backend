@@ -3,6 +3,10 @@ const axios = require('axios').default;
 const request = require('request');
 
 
+const headers = {
+    "content-type": "text/plain;"
+};
+
 
 exports.broadcastTransaction = async function(req, res) {
   const transaction = req.body.rawtx
